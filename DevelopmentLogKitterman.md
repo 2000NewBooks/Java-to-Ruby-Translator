@@ -6,6 +6,7 @@ The first day of working on our project. Today me and Carson started writing a c
  -
  -2/19/16
  -Trying to program a project that recognizes the entirety of Ruby was definetely a bad idea. We can't do it at our specified deadline so we changed it. The rest of the class I was writing our new deliverable. It will only recognize the loops and statements in Ruby. It's going to be much easier. We also changed the second deliverable to our original first deliverable that recognizes all of Ruby. So far the program is going well. It can recognize while loops, for loops, and until loops. Implementing Ruby into Java was a lot easier than I thought it would be. Basically I need to write code that accepts basic syntax for Ruby and checks it against things that are already written. It can also recognize break statements, retry statements and redo statements. It's working pretty well so far, we just need to implement the rest of the loops and statements.
+ 
  -
  -
  -2/26/16 
