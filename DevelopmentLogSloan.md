@@ -74,3 +74,9 @@ done, cause that would take quite a while, but we have all the most used keyword
 it to recognize. Andrew recently implemented Hash recognition, although it doesn't actually translate them at this point. We may or
 may not implement hash translations, as there are quite a few things to add, and some are quite different from Java to Ruby. Our
 deliverable is completely done, and we have even done translations for all keywords besides Hashes.
+
+##5/13/2016
+We did some bug fixing, and I tested it a few times with different things. It worked decently well, although the final code threw a
+few compiletime errors, which we had to fix. These were mostly missing semicolons, unmatched brackets and stuff like that. I also
+added translations for simple comments just using a '#', which I don't know how we managed to forget these earlier (Either that or I'm
+just blind and now we have two comment translators).
