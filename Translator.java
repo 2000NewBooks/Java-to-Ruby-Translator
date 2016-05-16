@@ -408,7 +408,12 @@ public class Translator
         {
             //returns a new hash that has all the keys associated with the values
         }
-        //after typing all that, hash doesn't sound like a real word.
+        
+        else if (line.indexOf("#") != -1)
+        {
+            newLine += "//" + line.substring(line.indexOf("#"));
+        }
+        
         else
         {
             throw new IndexOutOfBoundsException("Unknown argument on line " + lineNum); //If it finds an argument that isn't listed (Obviously, more need to be added)
