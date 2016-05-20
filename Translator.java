@@ -1,5 +1,5 @@
 import java.io.*;
-import java.util.*; 
+import java.util.*;
 /**
  * A class that takes a Ruby script and translates it into a Java program
  * 
@@ -11,6 +11,14 @@ public class Translator
     private static int lineNum = -1; //Stores which line is being read
 
     /**
+     * Constructor for objects of class Translator (Unused)
+     */
+    public Translator()
+    {
+
+    }
+
+    /**
      * Takes the user's Ruby file, then translates it to java and prints it to a new file
      * Runs the program
      * @param args unused
@@ -19,38 +27,38 @@ public class Translator
     {   
 
         Scanner kbReader = new Scanner(System.in);
-        System.out.println("Please input the path of the file you would like to have translated");
+        System.out.println("Please input the path of the file you would ike to have translated");
         String fileName = kbReader.nextLine();
         System.out.println("Please input the name of the translated file to be output");
         String exportName = kbReader.nextLine();
         File file = null;
         FileWriter writer = null;
-        try {//starts a try-catch block
-            file = new File(exportName);//sets our file name equal to theirs because reasons
-            file.createNewFile();//creates a new file
-            writer = new FileWriter(file);//Sets writer equal to a new filewriter that writes to a file
-
+        PrintWriter pw = null;
+        try {
+            file = new File(exportName);
+            file.createNewFile();
+            writer = new FileWriter(file);
+            
         }
-        catch (IOException e) {//catches an IO Exception
-            System.out.println("oops");//Something went wrong
-            System.exit(1);//Exits with an error
+        catch (IOException e) {
+            System.out.println("oops");
+            System.exit(1);
         }
 
         String line = null; //Used to scan line-by-line
-        try//starts a try block
+        try
         {
-            FileReader reader = new FileReader(fileName);//Filewriters be like
-            BufferedReader bufferedReader = new BufferedReader(reader);//Too long; read anyway
-            while((line = bufferedReader.readLine()) != null)//Starts a while loopy-thingy
+            FileReader reader = new FileReader(fileName);
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            while((line = bufferedReader.readLine()) != null)
             {
                 lineNum++; //corrects what line is being read
                 writer.write(translate(line) + "\n"); 
+                
             }
             bufferedReader.close();
         }
         catch(FileNotFoundException ex)
-        
-        
         {
             System.out.println("Unable to open file '" + fileName + "'");
         }
@@ -60,7 +68,6 @@ public class Translator
         }
 
         //Variable declarations
-        //Executes at the end after all main method lines have been translated
         for(Variable var : vars)
         {
             try
@@ -70,19 +77,20 @@ public class Translator
             catch(IOException I)
             {
                 System.out.println("oops.");
-                System.exit(1);//exits with an error
+                System.exit(1);
             }
         }
         try
         {
-            writer.flush();//Clears the writer
-            writer.close();//closes the writer
+            writer.flush();
+            writer.close();
         }
-        catch(IOException I)//Catches an IO exception
+        catch(IOException I)
         {
-            System.out.println("oops.");//Prints oops
-            System.exit(1);//Exits with an error
+            System.out.println("oops.");
+            System.exit(1);
         }
+        System.out.println(file);
     }
 
     /**
@@ -90,19 +98,19 @@ public class Translator
      * Returns a java version of an inputted line of Ruby code
      * @return a java version of an inputted line of Ruby code
      */
-    public static String translate(String line)//Declares the translate method
+    public static String translate(String line)
     {
         int eqPos = -1; //Stores the position of the equal sign so the variables can be separated
         String newLine = ""; //Translated line
-        boolean isUntilLoop = false;//sets this boolean to false
+        boolean isUntilLoop = false;
 
         /* LOOPS */
 
-        if (line.indexOf("while") != -1)//Checks index
+        if (line.indexOf("while") != -1)
         {
             newLine += "while ("; //Adds while to the new line
-            eqPos = line.trim().indexOf("="); //Finds the index of the equal sign
-            Variable var = new Variable(line.substring(line.indexOf("while") + 5, eqPos), "double");
+            eqPos = line.trim().indexOf("=");
+            Variable var = new Variable(line.substring(line.indexOf("while")+5, eqPos ), "double");
             vars.add(var);
         }
         else if (line.indexOf("do") != -1)
@@ -117,7 +125,7 @@ public class Translator
             newLine += "for (";
             eqPos = line.trim().indexOf("=");
             Variable var = new Variable(line.substring(line.indexOf("for") + 3, eqPos), "double");
-            vars.add(var);//Carson won't remove these comments, so this one adds a new var to Vars.
+            vars.add(var);
         }
         else if(line.indexOf("until") != -1 )
         {
@@ -149,7 +157,7 @@ public class Translator
             vars.add(var);
         }
 
-        /* VARIABLES */
+        /* VARIABLES (Unfinished) */
 
         else if(line.indexOf("Array.new") != -1)
         {
@@ -164,38 +172,6 @@ public class Translator
             newLine += "for(double u; newArr); {/*Some expression here/*}";
             eqPos = line.trim().indexOf("=");
             Variable var = new Variable(line.substring(line.indexOf("Array.each") + 10 , eqPos), "double");
-            vars.add(var);
-        }
-
-        else if(line.indexOf("$")!= -1)
-        {
-            newLine +=  line.substring(line.indexOf("$"),line.indexOf(" ") );
-            eqPos = line.trim().indexOf("=");
-            Variable var = new Variable(line.substring(line.indexOf("$") + 1 , eqPos), "String");
-            vars.add(var);
-        }
-
-        else if(line.indexOf("@")!= -1)
-        {
-            newLine +=  line.substring(line.indexOf("@"),line.indexOf(" ") );
-            eqPos = line.trim().indexOf("=");
-            Variable var = new Variable(line.substring(line.indexOf("@") + 1 , eqPos), "String");
-            vars.add(var);
-        }
-
-        else if(line.indexOf("@@")!= -1)
-        {
-            newLine +=  line.substring(line.indexOf("@@"),line.indexOf(" ") );
-            eqPos = line.trim().indexOf("=");
-            Variable var = new Variable(line.substring(line.indexOf("@@") + 1 , eqPos), "String");
-            vars.add(var);
-        }
-
-        else if(line.indexOf("def")!= -1)
-        {
-            newLine += line.substring(line.indexOf("def"), line.indexOf(" "));
-            eqPos = line.trim().indexOf("=");
-            Variable var = new Variable(line.substring(line.indexOf("def") +1, eqPos), "String");
             vars.add(var);
         }
 
@@ -225,31 +201,54 @@ public class Translator
         {
             newLine = line + ";";
         }
+        /* I fixed all the variable assignment 4/25/16 -Andrew */
 
-        /* STUFF */
-        //Not sure what you want this to do
+        else if(line.indexOf("$")!= -1)
+        {
+            newLine +=  line.substring(line.indexOf("$"),line.indexOf(" ") );
+            eqPos = line.trim().indexOf("=");
+            Variable var = new Variable(line.substring(line.indexOf("$") + 1 , eqPos), "String");
+            vars.add(var);
+        }
+        else if(line.indexOf("@")!= -1)
+        {
+            newLine +=  line.substring(line.indexOf("@"),line.indexOf(" ") );
+            eqPos = line.trim().indexOf("=");
+            Variable var = new Variable(line.substring(line.indexOf("@") + 1 , eqPos), "String");
+            vars.add(var);
+        }
+        else if(line.indexOf("@@")!= -1)
+        {
+            newLine +=  line.substring(line.indexOf("@@"),line.indexOf(" ") );
+            eqPos = line.trim().indexOf("=");
+            Variable var = new Variable(line.substring(line.indexOf("@@") + 1 , eqPos), "String");
+            vars.add(var);
+        }
+        else if(line.indexOf("def")!= -1)
+        {
+            newLine += line.substring(line.indexOf("def"), line.indexOf(" "));
+            eqPos = line.trim().indexOf("=");
+            Variable var = new Variable(line.substring(line.indexOf("def") +1, eqPos), "String");
+            vars.add(var);
 
+        }
         else if(line.indexOf("end")!= -1)
         {
             newLine += line.substring(line.indexOf("end"), line.indexOf(" "));
             eqPos = line.trim().indexOf("=");
-            //Unnecessary
-            //Variable var = new Variable(line.substring(line.indexOf("end") +1, eqPos), "String");
-            //vars.add(var);
-        }
+            Variable var = new Variable(line.substring(line.indexOf("end") +1, eqPos), "String");
+            vars.add(var);
 
+        }
         else if(line.indexOf("return")!= -1)
         {
             newLine += line.substring(line.indexOf("return"), line.indexOf(" "));
             eqPos = line.trim().indexOf("=");
-            //Unnecessary
-            //Variable var = new Variable(line.substring(line.indexOf("return") +1, eqPos), "String");
-            //vars.add(var); 
-        }
+            Variable var = new Variable(line.substring(line.indexOf("return") +1, eqPos), "String");
+            vars.add(var);
 
-        /* HASHES */
-        //So basically we don't want to take the time to translate all this crap. That would take years.
-        //So we're going to make sure it can recognize it at least
+        }//so basically we don't want to take the time to translate all this crap. That would take years.
+        //so we're going to make sure it can recognize it at least
         //I don't even know what half of this is - Kitterman
         else if(line.indexOf("do")!= -1)
         {
@@ -408,16 +407,12 @@ public class Translator
         {
             //returns a new hash that has all the keys associated with the values
         }
-        
-        else if (line.indexOf("#") != -1)
-        {
-            newLine += "//" + line.substring(line.indexOf("#"));
-        }
-        
+        //after typing all that, hash doesn't sound like a real word.
         else
         {
             throw new IndexOutOfBoundsException("Unknown argument on line " + lineNum); //If it finds an argument that isn't listed (Obviously, more need to be added)
-        }
-        return newLine;
+        }//this better work carson
+        return newLine;//ALSO FREAKING ONE LINE??? 
+        //oh wait, it's a line printed to a file. Never mind.
     }
 }
