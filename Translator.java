@@ -19,7 +19,7 @@ public class Translator
     {   
 
         Scanner kbReader = new Scanner(System.in);
-        System.out.println("Please input the name of the file you would ike to have translated");
+        System.out.println("Please input the path of the file you would like to have translated");
         String fileName = kbReader.nextLine();
         System.out.println("Please input the name of the translated file to be output");
         String exportName = kbReader.nextLine();
