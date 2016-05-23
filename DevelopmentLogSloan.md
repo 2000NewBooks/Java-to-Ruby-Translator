@@ -65,7 +65,7 @@ found that array declarations don't work too well yet.
 ##4/22/2016
 Today I continued on the codecademy Ruby course, and realized we need to start working on hashes. This shouldnt't be too hard to
 implement though, as it's similar in Ruby and java, but will probably be a significant amount of work still. We are pretty well on our
-way to our deliverable, although our FileWriter writer is throwing an exception that it wasn;t before, so we need to figure out why,
+way to our deliverable, although our FileWriter writer is throwing an exception that it wasn't before, so we need to figure out why,
 and fix the problem. It's kind of annoying however, cause we didn't even change anything in the method it's in.
 
 ##5/6/2016
@@ -80,3 +80,6 @@ We did some bug fixing, and I tested it a few times with different things. It wo
 few compiletime errors, which we had to fix. These were mostly missing semicolons, unmatched brackets and stuff like that. I also
 added translations for simple comments just using a '#', which I don't know how we managed to forget these earlier (Either that or I'm
 just blind and now we have two comment translators).
+
+##5/20/2016
+We finished our powerpoint and script for the presentation to do on Wednesday. We are pretty prepared, and we may pass the 10 minute mark. We also created a test Ruby file that we will use for our demonstration. We've tested it a few times, and it works quite well. This should be added to GitHub soon.
