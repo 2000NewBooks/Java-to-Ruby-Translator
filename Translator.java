@@ -66,7 +66,7 @@ public class Translator
         {
             try
             {
-                writer.write("public" + var.toString() + ";");
+                writer.write("public" + var.toString() + ";" + "\n");
             }
             catch(IOException I)
             {
