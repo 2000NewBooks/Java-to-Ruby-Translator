@@ -11,11 +11,11 @@ Array.each=
 /
 *
 %
-$=
-@=
-@@=
-def=
-end=
-return=
+$ =
+@ =
+@@ =
+def =
+end =
+return =
 
 
